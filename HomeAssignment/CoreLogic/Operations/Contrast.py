@@ -28,7 +28,8 @@ class Contrast(BaseOperation):
         :return: The modified image.
         """
         image = image.astype(np.float64)
-        image = self.filter_amount * (image - 128) + 128
+        image = self.filter_amount * (image - 128) + 128  # 128 is the midpoint of 0-255 range and will be grayish if 0
         image = np.clip(image, 0, 255)
         image = image.astype(np.uint8)
         return image
+
