@@ -2,6 +2,7 @@ from PIL import Image
 import numpy as np
 
 from CoreLogic.Operations.Brightness import Brightness
+from CoreLogic.Operations.Contrast import Contrast
 
 
 class ImageIO:
@@ -31,4 +32,10 @@ class ImageIO:
         img = Image.fromarray(image)
         img.save(output_path)
 
+
+image = ImageIO.read_image("ex.jpg")
+filt = Contrast()
+filt.set_filter_amount(1.5)
+image = filt.apply(image)
+ImageIO.write_image(image, "output.jpg")
 
