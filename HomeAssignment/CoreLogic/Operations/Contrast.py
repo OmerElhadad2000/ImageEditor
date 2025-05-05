@@ -1,6 +1,6 @@
 import numpy as np
 
-from CoreLogic.Operations.base_operation import BaseOperation
+from CoreLogic.Operations.BaseOperation import BaseOperation
 
 
 class Contrast(BaseOperation):

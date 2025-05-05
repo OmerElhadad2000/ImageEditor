@@ -3,6 +3,7 @@ import numpy as np
 
 from CoreLogic.Operations.Brightness import Brightness
 from CoreLogic.Operations.Contrast import Contrast
+from CoreLogic.Operations.Saturation import Saturation
 
 
 class ImageIO:
@@ -33,9 +34,10 @@ class ImageIO:
         img.save(output_path)
 
 
-image = ImageIO.read_image("ex.jpg")
-filt = Contrast()
-filt.set_filter_amount(1.5)
-image = filt.apply(image)
-ImageIO.write_image(image, "output.jpg")
+# image = ImageIO.read_image("ex.jpg")
+# filt = Saturation()
+# filt.set_filter_amount(0)
+# image = filt.apply(image)
+# ImageIO.write_image(image, "output.jpg")
+
 
