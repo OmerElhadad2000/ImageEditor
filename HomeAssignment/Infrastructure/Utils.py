@@ -20,3 +20,5 @@ class Utils:
         :return: The RGB image as a NumPy array.
         """
         return cv2.cvtColor((hsv_image * 255).astype(np.uint8), cv2.COLOR_HSV2RGB).astype(np.float64)
+
+

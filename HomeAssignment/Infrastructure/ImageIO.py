@@ -1,6 +1,9 @@
 from PIL import Image
 import numpy as np
 
+from CoreLogic.Operations.BoxBlur import BoxBlur
+from CoreLogic.Operations.EdgeDetection import EdgeDetection
+
 
 class ImageIO:
     """
@@ -15,6 +18,7 @@ class ImageIO:
         :param image_path: The path to the image file.
         :return: The image as a NumPy array.
         """
+
         with Image.open(image_path) as img:
             return np.array(img)
 
@@ -30,10 +34,7 @@ class ImageIO:
         img.save(output_path)
 
 
-# image = ImageIO.read_image("ex.jpg")
-# filt = Saturation()
-# filt.set_filter_amount(0)
-# image = filt.apply(image)
-# ImageIO.write_image(image, "output.jpg")
-
-
+# img = ImageIO.read_image("gray_image.jpg")
+# blur = BoxBlur()
+# blur.set_blur_window(3,3)
+# ImageIO.write_image(blur.apply_on_grayscale(img), "blurred_image.jpg")
