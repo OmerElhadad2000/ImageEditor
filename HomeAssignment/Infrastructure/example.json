@@ -1,0 +1,17 @@
+{
+  "input": "C:\\Git\\HomeAssignment\\ImageEditor\\HomeAssignment\\Infrastructure\\image.png",
+  "output": "me.png",
+  "display": "true",
+  "operations": [
+    {
+      "type": "box",
+      "width": 3,
+      "height": 3
+    },
+
+    {
+      "type": "sharpen",
+      "value": 8
+    }
+  ]
+}

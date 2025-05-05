@@ -34,9 +34,9 @@ class BoxBlur(BaseOperation):
         green_channel = image[:, :, 1]
         blue_channel = image[:, :, 2]
 
-        red_result = self.padded_mean(red_channel)
-        green_result = self.padded_mean(green_channel)
-        blue_result = self.padded_mean(blue_channel)
+        red_result = self.blur_channel(red_channel)
+        green_result = self.blur_channel(green_channel)
+        blue_result = self.blur_channel(blue_channel)
         result = np.zeros_like(image)
 
         result[:, :, 0] = red_result
@@ -44,7 +44,7 @@ class BoxBlur(BaseOperation):
         result[:, :, 2] = blue_result
         return result.astype(np.uint8)
 
-    def padded_mean(self, image: np.ndarray) -> np.ndarray:
+    def blur_channel(self, image: np.ndarray) -> np.ndarray:
         """
         Apply the box blur operator to the image using a padded convolution.
         The image is padded to handle the borders.
@@ -66,11 +66,3 @@ class BoxBlur(BaseOperation):
         result = result.astype(np.uint8)
         return result
 
-    def apply_on_grayscale(self, image: np.ndarray) -> np.ndarray:
-        """
-        Apply the box blur filter to the grayscale image.
-        The image is expected to be in grayscale format (1 channel).
-        :param image: The image as a NumPy array.
-        :return: The modified image with box blur applied.
-        """
-        return self.padded_mean(image)

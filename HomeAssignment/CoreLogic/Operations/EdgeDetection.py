@@ -28,9 +28,9 @@ class EdgeDetection(BaseOperation):
         green_channel = image[:, :, 1]
         blue_channel = image[:, :, 2]
 
-        red_result = self.padded_conv(red_channel)
-        green_result = self.padded_conv(green_channel)
-        blue_result = self.padded_conv(blue_channel)
+        red_result = self.sobel_channel(red_channel)
+        green_result = self.sobel_channel(green_channel)
+        blue_result = self.sobel_channel(blue_channel)
 
         result = np.zeros_like(image)
         result[:, :, 0] = red_result
@@ -39,7 +39,7 @@ class EdgeDetection(BaseOperation):
 
         return result.astype(np.uint8)
 
-    def padded_conv(self, image: np.ndarray) -> np.ndarray:
+    def sobel_channel(self, image: np.ndarray) -> np.ndarray:
         """
         Apply the Sobel operator to the image using a padded convolution.
         The Sobel operator is used to detect edges in the image.
@@ -65,11 +65,3 @@ class EdgeDetection(BaseOperation):
         gradient = gradient.astype(np.uint8)
 
         return np.clip(gradient, 0, 255)
-
-    def apply_on_grayscale(self, image: np.ndarray) -> np.ndarray:
-        """
-        Apply the edge detection operation on a grayscale image.
-        :param image: The grayscale image as a NumPy array.
-        :return: The modified image.
-        """
-        return self.padded_conv(image).astype(np.uint8)
