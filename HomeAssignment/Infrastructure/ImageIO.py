@@ -1,6 +1,9 @@
 from PIL import Image
 import numpy as np
 
+from CoreLogic.Operations.Brightness import Brightness
+
+
 class ImageIO:
     """
     A class for reading and writing images.
@@ -27,3 +30,5 @@ class ImageIO:
         """
         img = Image.fromarray(image)
         img.save(output_path)
+
+

@@ -13,4 +13,3 @@ class BaseOperation(ABC):
         :param image: The image to which the operation will be applied.
         :return: The modified image.
         """
-        pass
