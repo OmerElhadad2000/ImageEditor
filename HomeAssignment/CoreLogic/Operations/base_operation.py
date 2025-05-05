@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-import np
+import numpy as np
 
 
 class BaseOperation(ABC):
