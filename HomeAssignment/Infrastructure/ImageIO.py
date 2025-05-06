@@ -1,12 +1,10 @@
 from PIL import Image
 import numpy as np
 
+from Infrastructure.Utils import Utils
+
 
 class ImageIO:
-    """
-    A class for reading and writing images.
-    """
-
     @staticmethod
     def read_image(image_path: str) -> np.ndarray:
         """
@@ -17,7 +15,8 @@ class ImageIO:
         """
 
         with Image.open(image_path) as img:
-            return np.array(img)
+            img = np.array(img)
+            return Utils.convert_to_3d(img)
 
     @staticmethod
     def write_image(image: np.ndarray, output_path: str) -> None:
@@ -39,14 +38,3 @@ class ImageIO:
         """
         img = Image.fromarray(image)
         img.show()
-
-# img = ImageIO.read_image("gray_image.jpg")
-# blur = BoxBlur()
-# blur.set_blur_window(3,3)
-# ImageIO.write_image(blur.apply_on_grayscale(img), "blurred_image.jpg")
-
-
-# img = ImageIO.read_image("gray_image.jpg")
-# sharpen = Sharpen()
-# sharpen.set_filter_amount(1.5)
-# ImageIO.write_image(sharpen.apply_on_channel(img), "blurred_image.jpg")
