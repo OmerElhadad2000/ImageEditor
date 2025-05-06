@@ -1,6 +1,8 @@
 from CoreLogic.Operations.BaseOperation import BaseOperation
 import numpy as np
 
+from Infrastructure.Utils import Utils
+
 
 class EdgeDetection(BaseOperation):
     def __init__(self):
@@ -24,20 +26,7 @@ class EdgeDetection(BaseOperation):
         :param image: The image as a NumPy array.
         :return: The modified image with edges detected.
         """
-        red_channel = image[:, :, 0]
-        green_channel = image[:, :, 1]
-        blue_channel = image[:, :, 2]
-
-        red_result = self.sobel_channel(red_channel)
-        green_result = self.sobel_channel(green_channel)
-        blue_result = self.sobel_channel(blue_channel)
-
-        result = np.zeros_like(image)
-        result[:, :, 0] = red_result
-        result[:, :, 1] = green_result
-        result[:, :, 2] = blue_result
-
-        return result.astype(np.uint8)
+        return Utils.multi_channel_filter_apply(image, self.sobel_channel)
 
     def sobel_channel(self, image: np.ndarray) -> np.ndarray:
         """
@@ -53,8 +42,8 @@ class EdgeDetection(BaseOperation):
         y_result = np.zeros_like(image)
 
         rows, cols = image.shape
-        for i in range(1,rows):
-            for j in range(1,cols):
+        for i in range(1, rows):
+            for j in range(1, cols):
                 region = padded[i:i + 3, j:j + 3]
                 x_result[i, j] = np.sum(region * self.sobel_x)
                 y_result[i, j] = np.sum(region * self.sobel_y)

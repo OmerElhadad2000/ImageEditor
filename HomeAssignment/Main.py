@@ -1,34 +1,3 @@
-# import argparse
-#
-# from Application.FilterActivator import FilterActivator
-# from Infrastructure.ImageIO import ImageIO
-# from Infrastructure.Parser import Parser
-#
-# if __name__ == '__main__':
-#     parser = argparse.ArgumentParser(description="Load a JSON file for image processing operations.")
-#     parser.add_argument('json_file', type=str, help="Path to the JSON file containing operations.")
-#
-#     args = parser.parse_args()
-#     json_file_path = args.json_file
-#
-#     parser = Parser(json_file_path)
-#     parser.validate_json()
-#
-#     operations = parser.get_operations()
-#
-#     image_path = parser.get_image_path()
-#     image = ImageIO.read_image(image_path)
-#
-#     filter_activator = FilterActivator()
-#     for operation in operations:
-#         image = filter_activator.activate_filter(operation, image)
-#
-#     output_path = parser.get_output_path()
-#     if output_path:
-#         ImageIO.write_image(image, output_path)
-#     else:
-#         ImageIO.show_image(image)
-
 import argparse
 
 from Application.FilterActivator import FilterActivator
@@ -58,7 +27,6 @@ def main():
     # Get image path
     image_path = parser.get_image_path()
     image = ImageIO.read_image(image_path)
-
     filter_activator = FilterActivator()
     for operation in operations:
         image = filter_activator.activate_filter(operation, image)
