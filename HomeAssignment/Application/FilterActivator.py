@@ -36,6 +36,7 @@ class FilterActivator:
         elif filter_data["type"] == "sobel":
             return self.edge_detection.apply(image)
         elif filter_data["type"] == "sharpen":
+            self.sharpen.set_filter_amount(filter_data["value"])
             return self.sharpen.apply(image)
         else:
             raise ValueError(f"Unknown filter type: {filter_data['type']}")
