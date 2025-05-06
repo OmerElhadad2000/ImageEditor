@@ -1,7 +1,7 @@
 import numpy as np
 
 from CoreLogic.Operations.BaseOperation import BaseOperation
-from Infrastructure.Utils import Utils
+from CoreLogic.ImageUtils import ImageUtils
 
 
 class Saturation(BaseOperation):
@@ -11,12 +11,8 @@ class Saturation(BaseOperation):
         """
         self.filter_amount = 1
 
-    def set_filter_amount(self, filter_amount: float):
-        """
-        Set the saturation adjustment value.
-        :param filter_amount: The saturation adjustment value.
-        """
-        self.filter_amount = filter_amount
+    def configure(self, **kwargs):
+        self.filter_amount = kwargs.get("value", 1)
 
     def apply(self, image: np.ndarray) -> np.ndarray:
         """
@@ -27,11 +23,11 @@ class Saturation(BaseOperation):
         :return: The modified image.
         """
         image = image.astype(np.float64)
-        hsv_image = Utils.rgb_to_hsv(image)
-        hsv_image[..., 1] *= self.filter_amount
-        hsv_image[..., 1] = np.clip(hsv_image[..., 1], 0, 1)  # Because HSV is in [0, 1] range
+        hsv_image = ImageUtils.rgb_to_hsv(image)
+        hsv_image[:, :, 1] *= self.filter_amount
+        hsv_image[:, :, 1] = np.clip(hsv_image[:, :, 1], 0, 1)  # Because HSV is in [0, 1] range
 
-        rgb_image = Utils.hsv_to_rgb(hsv_image)
+        rgb_image = ImageUtils.hsv_to_rgb(hsv_image)
         rgb_image = np.clip(rgb_image, 0, 255)
         rgb_image = rgb_image.astype(np.uint8)
         return rgb_image

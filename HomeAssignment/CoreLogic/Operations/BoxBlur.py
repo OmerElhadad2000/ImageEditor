@@ -1,7 +1,7 @@
 import numpy as np
 
 from CoreLogic.Operations.BaseOperation import BaseOperation
-from Infrastructure.Utils import Utils
+from CoreLogic.ImageUtils import ImageUtils
 
 
 class BoxBlur(BaseOperation):
@@ -9,9 +9,9 @@ class BoxBlur(BaseOperation):
         self.X = 1
         self.Y = 1
 
-    def set_blur_window(self, X: int, Y: int):
-        if X > 0 and Y > 0:
-            self.X, self.Y = X, Y
+    def configure(self, **kwargs):
+        self.X = kwargs.get("height", 1)
+        self.Y = kwargs.get("width", 1)
 
     def apply(self, image: np.ndarray) -> np.ndarray:
         """
@@ -21,7 +21,7 @@ class BoxBlur(BaseOperation):
         :param image: The image as a NumPy array.
         :return: The modified image with box blur applied.
         """
-        return Utils.multi_channel_filter_apply(image, self.blur_channel)
+        return ImageUtils.multi_channel_filter_apply(image, self.blur_channel)
 
     def blur_channel(self, image: np.ndarray) -> np.ndarray:
         """
@@ -43,6 +43,5 @@ class BoxBlur(BaseOperation):
                 result[i, j] = np.mean(region)
         result = np.clip(result, 0, 255)
         result = result.astype(np.uint8)
-
         return result
 

@@ -2,7 +2,7 @@ import numpy as np
 
 from CoreLogic.Operations.BaseOperation import BaseOperation
 from CoreLogic.Operations.BoxBlur import BoxBlur
-from Infrastructure.Utils import Utils
+from CoreLogic.ImageUtils import ImageUtils
 
 
 class Sharpen(BaseOperation):
@@ -14,15 +14,10 @@ class Sharpen(BaseOperation):
         """
         Initialize the Sharpen operation.
         """
-        self.filter_amount = 3
+        self.filter_amount = 1
 
-    def set_filter_amount(self, filter_amount: float):
-        """
-        Set the sharpening amount.
-        :param filter_amount: The sharpening amount.
-        """
-        if filter_amount >= 0:
-            self.filter_amount = filter_amount
+    def configure(self, **kwargs):
+        self.filter_amount = kwargs.get("value", 1)
 
     def apply(self, image: np.ndarray) -> np.ndarray:
         """
@@ -32,11 +27,11 @@ class Sharpen(BaseOperation):
         :param image: The image as a NumPy array.
         :return: The modified image with sharpening applied.
         """
-        return Utils.multi_channel_filter_apply(image, self.sharpen_channel)
+        return ImageUtils.multi_channel_filter_apply(image, self.sharpen_channel)
 
     def sharpen_channel(self,image: np.ndarray) -> np.ndarray:
         blur = BoxBlur()
-        blur.set_blur_window(5, 5)
+        blur.configure(height=5, width=5)
         blurred = blur.blur_channel(image).astype(np.float32)
 
         image = image.astype(np.float32)

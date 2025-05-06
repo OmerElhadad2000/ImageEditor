@@ -2,13 +2,16 @@ import numpy as np
 import cv2
 
 
-class Utils:
+class ImageUtils:
     @staticmethod
     def rgb_to_hsv(rgb_image: np.ndarray) -> np.ndarray:
         """
         Convert an RGB image to HSV color space.
         :param rgb_image: The RGB image as a NumPy array.
         :return: The HSV image as a NumPy array.
+
+        Note: This function and the following one was suggested after looking out for
+        how to transform from RGB to HSV vice versa.
         """
         return cv2.cvtColor(rgb_image.astype(np.uint8), cv2.COLOR_RGB2HSV).astype(np.float64) / 255.0
 

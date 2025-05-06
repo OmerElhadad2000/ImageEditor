@@ -1,7 +1,7 @@
 from CoreLogic.Operations.BaseOperation import BaseOperation
 import numpy as np
 
-from Infrastructure.Utils import Utils
+from CoreLogic.ImageUtils import ImageUtils
 
 
 class EdgeDetection(BaseOperation):
@@ -26,7 +26,7 @@ class EdgeDetection(BaseOperation):
         :param image: The image as a NumPy array.
         :return: The modified image with edges detected.
         """
-        return Utils.multi_channel_filter_apply(image, self.sobel_channel)
+        return ImageUtils.multi_channel_filter_apply(image, self.sobel_channel)
 
     def sobel_channel(self, image: np.ndarray) -> np.ndarray:
         """

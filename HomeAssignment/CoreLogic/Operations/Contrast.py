@@ -11,13 +11,8 @@ class Contrast(BaseOperation):
         """
         self.filter_amount = 0.5
 
-    def set_filter_amount(self, filter_amount: float):
-        """
-        Set the contrast adjustment value.
-        :param filter_amount: The contrast adjustment value.
-        """
-        if self.filter_amount >= 0:
-            self.filter_amount = filter_amount
+    def configure(self, **kwargs):
+        self.filter_amount = kwargs.get("value", 0.5)
 
     def apply(self, image: np.ndarray) -> np.ndarray:
         """
