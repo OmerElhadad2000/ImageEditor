@@ -16,7 +16,7 @@ class BaseOperation(ABC):
         """
         pass
 
-    def configure(self, **kwargs):
+    def configure(self, **kwargs) -> None:
         """
         Optionally configure the operation with parameters.
         Subclasses can override this if needed.

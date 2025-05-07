@@ -9,7 +9,7 @@ class BoxBlur(BaseOperation):
         self.X = 1
         self.Y = 1
 
-    def configure(self, **kwargs):
+    def configure(self, **kwargs) -> None:
         self.X = kwargs.get("height", 1)
         self.Y = kwargs.get("width", 1)
 

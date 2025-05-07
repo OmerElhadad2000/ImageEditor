@@ -9,7 +9,7 @@ class Brightness(BaseOperation):
         """
         self.filter_amount = 0
 
-    def configure(self, **kwargs):
+    def configure(self, **kwargs) -> None:
         self.filter_amount = kwargs.get("value", 0)
 
     def apply(self, image: np.ndarray) -> np.ndarray:
