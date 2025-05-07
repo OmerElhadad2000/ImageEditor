@@ -7,15 +7,15 @@ from CoreLogic.ImageUtils import ImageUtils
 class EdgeDetection(BaseOperation):
     def __init__(self):
         self.sobel_x = np.array([
-            [-1, 0, 1],
-            [-2, 0, 2],
-            [-1, 0, 1]
-        ])
-
-        self.sobel_y = np.array([
             [-1, -2, -1],
             [0, 0, 0],
             [1, 2, 1]
+        ])
+
+        self.sobel_y = np.array([
+            [-1, 0, 1],
+            [-2, 0, 2],
+            [-1, 0, 1]
         ])
 
     def apply(self, image: np.ndarray) -> np.ndarray:
@@ -37,13 +37,13 @@ class EdgeDetection(BaseOperation):
         :return: The modified image with edges detected.
         """
         image = image.astype(np.float32)
-        padded = np.pad(image, ((1, 1), (1, 1)), mode='constant')
+        padded = np.pad(image, ((1, 1), (1, 1)), mode='edge')
         x_result = np.zeros_like(image)
         y_result = np.zeros_like(image)
 
         rows, cols = image.shape
-        for i in range(1, rows):
-            for j in range(1, cols):
+        for i in range(rows):
+            for j in range(cols):
                 region = padded[i:i + 3, j:j + 3]
                 x_result[i, j] = np.sum(region * self.sobel_x)
                 y_result[i, j] = np.sum(region * self.sobel_y)
